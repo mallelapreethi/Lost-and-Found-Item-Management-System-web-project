@@ -1,0 +1,239 @@
+{% extends "base1.html" %}
+{% block title %}Search Found Items{% endblock %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// to Show/hide the acknowledgement form when status is changed
+			$("input[name='Status']").change(function() {
+                
+				if(this.value=='Returned') {
+					$(".acknowledgement-form").show();
+                    $(".returnedto").prop('required',true);
+                    $(".responsibility").prop('checked',true);
+                    $(".responsibility").prop('required',true);
+                }
+				 else {
+					$(".acknowledgement-form").hide();
+                    $(".returnedto").val("");
+                    $(".returnedto").prop('required', false);
+                    $(".responsibility").prop("required", false);
+                    $(".responsibility").prop("checked", false);
+				}
+			});
+        });  
+	</script>
+    <script>
+        $(document).ready(function(){
+            $("input[name='Search']").change(function(){
+                if (this.value == 2){
+                    $(".nosubmit").prop('type', 'date')
+                    $(".nosubmit").prop('placeholder', 'Search with date....')
+                }
+                else{
+                    $(".nosubmit").prop('type', 'search')
+                    $(".nosubmit").prop('placeholder', 'Search ....')
+                }
+            });
+        });  
+      </script> 
+</head>
+<body>
+     <center><h1 style="color:brown;";><i><b><u>SEARCH FOUND ITEMS</u></b></i></h1></center>
+        <div class="SearchBar" style="display: inline;"> <br>
+            <form method="POST" autocomplete="off">
+                <button type="submit"  value="Submit" class="cancelbtn">SEARCH</button>
+                <input class="nosubmit" type="search" placeholder="Search..." name="searcher" required>
+        </div>
+         <br><br><br><br>
+        <center>
+            <br>
+            <table width="100%">
+             <tr>
+                 <td style="text-align:right"><b>Search By:&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</b> </td>
+                 <td width="75%"><input type="radio" value="1" name="Search"required > Object Name 
+                  &nbsp; &nbsp;&nbsp;<input type="radio" value="2"  name="Search" class="foundDateRadio"> Found Date
+                 &nbsp;&nbsp; &nbsp;<input type="radio" value="3" name="Search" > Reported By(User id)
+                 &nbsp; &nbsp; &nbsp;<input type="radio" value="4" name="Search"> Status (Returned/Not Returned)</td>
+            </tr>
+            </table>
+            </form>
+        </center><br>
+    {% if headings %}
+        <table width="100%" class="w3-table w3-border w3-border-blue">
+         <tr>
+            <th class="w3-border w3-border-blue"> &nbsp;Sno. </th>
+            {% for heading in headings %}
+                <th  class="w3-border w3-border-blue" style="text-align:center" > {{ heading }}</th>
+            {% endfor %}
+         </tr>
+        {% set count = namespace(value=0) %}
+        {% for row in sdata %}
+            {% set count.value = count.value + 1 %}
+         <TR >
+           <td class="w3-border w3-border-blue">&nbsp;{{ count.value}} </td>
+           {% for val in row[1:5] %}  
+             <td class="w3-border w3-border-blue">
+                &nbsp;{{ val }}  
+             </td>
+           {% endfor %}
+             <TD class="w3-border w3-border-blue" style="text-align:center">
+                <button onclick="document.getElementById('view{{ row[0] }}').style.display='block'" class="viewbtn"> 
+                    View data</button>&nbsp;&nbsp;&nbsp;
+             </TD>
+              <TD class="w3-border w3-border-blue" style="text-align:center">
+                {% if row[2]|int == session['userid']|int   or  session['roleid']|int == 2302 %}
+                    <button onclick="document.getElementById('update{{ row[0] }}').style.display='block'" 
+                    class="updatebtn"> Update data</button>
+                {% else %}
+                <button disabled>Update data</button>
+                 {% endif %}
+             </TD>
+             
+         </TR>
+        {% endfor %}
+        </table>
+
+
+            <!-- On click of View button -->
+        {% for row in sdata %}
+            <div id="view{{ row[0] }}" class="w3-modal">
+                <div class="w3-modal-content w3-animate-top w3-card-4">
+                    <div class="modal-header">
+                       <span onclick="document.getElementById('view{{ row[0] }}').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                        <h2><b>&nbsp;</b></h2>
+                    </div>
+                    <div class="modal-body">
+                        {% for val in row[1:] %}
+                            {%if  val=="NULL" %}
+                                {% set val = "-" %}
+                            {% endif %}
+                        {% set index = loop.index %} 
+                    <table  width="100%" >
+                           <tr>
+                          {% for heading in Headings %}
+                            {% if index == loop.index %}
+                               <td width="20%" class="w3-border w3-border-blue" > &nbsp;  {{ heading }} </td>
+                            {% endif %}
+                            {% endfor %}
+                               <td class="w3-border w3-border-blue" > &nbsp;&nbsp; {{ val }}</td>
+                           </tr></table>
+                        {% endfor %}  
+      </table>
+                    </div>
+                    <div class="modal-footer"> 
+                        <button onclick="document.getElementById('view{{row[0] }}').style.display='none'"
+                      class="viewclose" > CLOSE </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+
+            <!-- On click of Update button -->
+        {% for row in sdata %}
+            <div id="update{{ row[0] }}" class="w3-modal">
+                <div class="w3-modal-content w3-animate-top w3-card-4">
+                    <form method="POST" action="update">
+                        <input type="hidden" name="id" value="{{ row[0] }}"/>
+                    <div class="modal-header">
+                       <span onclick="document.getElementById('update{{ row[0] }}').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                        <h2>&nbsp;</h2>
+                    </div>
+                    <div class="modal-body">
+                         <table class="w3-border" width="100%" name"mymod">
+                            {% set check = namespace(value=0) %}
+                        {% for val in row[1:] %}
+                                {%if val=="NULL" %}
+                                        {% set val = "-" %}
+                                {% endif %}
+                        {% set index = loop.index %}
+                           <tr>
+                          {% for heading in Headings %}
+                            {% if index == loop.index %}
+                               {% set header = heading|string %}
+                               <td width="20%" class="w3-border">{{ heading }} </td>
+                            {% endif %}
+                            {% endfor %}
+                               <td>
+                               
+                               {% if index==4  and val=="not returned" %}
+                                    {% set check.value = 1|int %}
+                                    <td class="w3-border">
+                                    <form id="update-form" method="post">
+                                    <input type="radio" name="Status" value="not returned" {% if val == "not returned" %}checked{% endif %}> Not Returned
+                                    <input type="radio" name="Status" value="Returned" {% if val == "Returned" %}checked{% endif %}> Returned
+                                    <br>
+                                    <div class="acknowledgement-form" style="display: none;" align="left">
+                                        <label>Returning to(User Id):</label>
+                                        <input type="text" name="returnedto" class="returnedto">
+                                        <br>
+                                        <label><input type="checkbox" name="responsibility" class="responsibility">I accept responsibility for the return of this item.</label>
+                                        <br><br>
+                                    </div>
+                                        </form>
+                                        </td>
+                               {% elif index == 9 %}
+                               <td class="w3-border"><input type="text" class="updateob" name="Description" value="{{val}}"></td>
+                               {% elif index == 10 %}
+                               <td class="w3-border"><input type="text" class="updateob"name="Remarks" value="{{val}}"></td>
+                               {% elif index == 11 %}
+                                        {% if check.value == 1 %}
+                                       <td class="w3-border"><input type="text" name="Collect from" class="updateob"value=" {{val}}"></td>
+                                        {% else %}
+                                            <td class="w3-border">{{val}} </td>
+                                        {% endif %}
+                               {% else %}
+                               <td class="w3-border">{{val}} </td>
+                               {% endif %}</td>
+                           </tr>
+                        {% endfor %}
+                        </table>
+    
+                    </div>
+                    <div class="modal-footer" align="center">
+                        <table> <tr>
+                            <td>
+                        <input type="hidden" name="Object Name" value="{{ row[1] }}">
+                        <input type="hidden" name="foundid" value="{{row[0]}}">
+                            <button type="submit" class="closing"><b>UPDATE</b></button>
+                            
+                            </td>
+                        </tr>
+                            </table>
+    
+                    </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    
+        </div>
+        
+    {% endif %}
+     <script>
+    function sendButtonId() {
+        var buttonId = document.getElementById("myButton").id;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+        xhttp.open("GET", "myPythonScript.py?id=" + buttonId, true);
+        xhttp.send();
+    }
+    
+     </script>
+    
+    </body>
+    
+    </html>
+    {% endblock %}

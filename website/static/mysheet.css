@@ -1,0 +1,89 @@
+body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    
+        .modal {
+            display: none;
+            position: fixed; /* fixed */
+            z-index: 1;
+            padding-top: 80px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: white ;            
+            background-color: white;          
+            overflow: auto;
+        }
+
+        /* Modal Content */
+        .modal-content {
+            max-height: 80%;
+            overflow: auto;
+            position: relative;
+            background-color: white;/*#fefefe;*/
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Adding Animation */
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        
+        .close {
+            color: white;
+            float: right;
+            font-size: 18px;
+            padding:10px, 10px;
+            border:2px solid red;
+            background-color: red;
+            border-radius:6px;
+            font-weight: bold;
+        }
+
+        
+        .modal-header {
+            padding: 2px 16px;
+            background-color: white;
+            color: black;
+            
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: white;
+            
+        }

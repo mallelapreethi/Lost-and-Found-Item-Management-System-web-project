@@ -1,0 +1,101 @@
+form {
+    border:none;
+  }
+  .bg-img {
+    background-image: url("bgimg.jpg");
+    min-height: 645px;
+    width:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  input[type=text] , input[type=password]  {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 3px solid rgb(0, 192, 251); /*solid #13a4f8ec;*/
+    color:black;
+    box-sizing: border-box;
+    background-color: white;
+    opacity:0.8;
+    border-radius:12px;
+  }
+  input[type=text]:focus, input[type=password]:focus {
+    outline:  rgb(0, 192, 251);
+    opacity : 1.0;
+  }
+
+  .submitbutton{
+    background-color: #17f307a5;
+    color: white;
+    padding: 10px 20px;
+    border-radius:12px;
+    margin: 8px 0;
+    border: 2px solid #17f307a5;
+    cursor: pointer;
+    width: 25%;
+  }
+  .submitbutton:hover {
+    opacity: 0.8;
+  }
+ 
+  .submitbutton:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #22ff00;
+  }
+  .cancelbtn {
+    padding: 10px 18px;
+    border-radius:5px;
+    background-color: #f44336;
+    color:white;
+    width:30%;
+    float:right;
+  }
+  
+  .containers {
+    padding: 10px;
+    background-color:rgb(254, 225, 172);
+    width:30%;
+    margin:50px;
+    position:absolute;
+    right:300px;
+    top:120px;
+    bottom:10;
+    border: 2px solid rgb(176, 221, 223);
+    border-radius:20px;
+  }
+  .createcontainers {
+    padding: 4px;
+    background-color:rgb(254, 225, 172);
+    width:30%;
+    margin:50px;
+    position:absolute;
+    right:200px;
+    top:25px;
+    border: 2px solid rgb(176, 221, 223);
+    border-radius:20px;
+  }
+  .contain {
+    padding: 10px;
+    background-color:rgb(247, 234, 193);
+    width:30%;
+    margin:50px;
+    position:absolute;
+    right:270px;
+    top:155px;
+   border-radius:12px;
+    border: 2px solid pink;
+  }
+  span.psw {
+    float:center;
+    padding-top: 16px;
+  }
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+
+  }

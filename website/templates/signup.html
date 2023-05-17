@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %} Sign Up {% endblock %}{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+</head>
+<body class="bg-img">
+    <form method="POST" autocomplete="off">
+    <center>
+      <div class="createcontainers">
+        <center><h1 style="color:brown;";><i><b><u>SIGN UP</u></b></i></h1></center>
+        <center><input type="text" placeholder="Enter UserID" name="Userid" color:"white" pattern="[0-9]*" minlength="6" maxlength='7' pattern="[0-9]*" required></center>
+        <center><input type="text" placeholder="Enter Your Full Name" name="fullname" color"white" maxlength='80' required></center>
+        <center><input type="text" placeholder="Enter email" name="email" color:"white" maxlength='60'required></center>
+        <center><input type="text" placeholder="Enter contactno" name="contact" pattern="[0-9]*" color:"white" minlength="10" maxlength='10' required></center>
+        <center><input type="password" placeholder="Enter Password" name="password1" minlength="8" maxlength="8"  required></center>
+        <center><input type="password" placeholder="Confirm Password" name="password2" minlength="8" maxlength="8" required></center>
+        <font color="grey"><small>* Password must be of 8 characters long.</font></small><br>
+        <span class="psw" >Already have account? &nbsp;<a id="login" href="/login">Log In</a></span><br>
+        <center><button type="submit" class="submitbutton"><b>Submit</b></button></center>
+      </div>
+    </center>
+</form>
+</body>
+</html>
+{% endblock %}

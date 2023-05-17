@@ -1,0 +1,184 @@
+{% extends "base1.html" %} {% block title %} Report Found Item {% endblock %}{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+    function isFutureDate(){
+       // checks entered date
+        var foundDate = document.getElementById("founddate").value;
+        var toDate = new Date(foundDate);
+        var currentDate = new Date();
+        const y = toDate.getFullYear();
+        let m = toDate.getMonth() + 1; 
+        let d = toDate.getDate();
+        if (d < 10) d = '0' + d;
+        if (m < 10) m = '0' + m;
+        const formattedToday = d + '/' + m + '/' + y; // date formatting
+        if (toDate > currentDate)
+          {
+              alert("The selected date " + formattedToday + " is  future date. Please select correct date.");
+              document.getElementById("founddate").value= " ";
+              document.getElementById("founddate").focus();
+        }
+         
+    }
+    </script>
+        <script>
+        function test(){
+              // checks time 
+                var foundDate = document.getElementById("founddate").value;   
+                var foundTime = document.getElementById("foundtime").value;
+                var tonow = new Date();
+                var currentHours = tonow.getHours();
+                var currentMinutes = tonow.getMinutes();
+                var userHours = parseInt(foundTime.split(":")[0]);
+                var userMinutes = parseInt(foundTime.split(":")[1]);
+                const y = tonow.getFullYear();
+                let m = tonow.getMonth() + 1; 
+                let d = tonow.getDate();
+                if (d < 10) d = '0' + d;
+                if (m < 10) m = '0' + m;
+                const today = y + '-' + m + '-' + d;   
+                if(foundDate == today){
+                    if (userHours <= currentHours && userMinutes < currentMinutes) {
+                    } 
+                    else {
+                        alert("The selected time is in  future");
+                        document.getElementById("foundtime").value = " ";
+                    }
+                }
+            }
+        </script>
+</head>
+<body style="background-color:beige">
+    <div class="container">
+    <br><center><h1 style="color:brown;"><b><u>REPORT FOUND ITEM</u></b></h1></center> <br>
+    <form method="POST" autocomplete="off">
+        <center>
+        <table valign="top">
+            <tr>
+                <td valign="top" width="40%">
+                    <table width="100%">
+                        <tr>
+                <td style="text-align:right"><b style="color:red">* </b><b>Object: &nbsp; &nbsp;</b></td>
+                <td> <input type="text" name="Object" maxlength="200" class="report" required></td>
+            </tr>
+            <tr>
+                <td style="text-align:right"><b>Brand: &nbsp; &nbsp;</b></td>
+                <td> <input type="text" name="Brand" maxlength="200" class="report"></td>
+            </tr>
+            <tr>
+                <td style="text-align:right"><b>Color: &nbsp; &nbsp; </b></td>
+                <td> <input type="text" name="Color" maxlength="10" class="report" ></td>
+            </tr>
+                           <tr>
+                <td style="text-align:right"><b>Size: &nbsp; &nbsp;</b></td>
+                <td>
+                    <input type="radio" id="small" name="Size" value="Small"> Small
+                    &nbsp; &nbsp;
+                    <input type="radio" id="medium" name="Size" value="Medium"> Medium
+                    &nbsp; &nbsp;
+                    <input type="radio" id="big" name="Size" value="Big"> Big
+                </td>
+            </tr>
+                     <tr>
+                <td style="text-align:right"><b style="color:red">* </b>
+                    <b>Found Date: &nbsp; &nbsp;</b></td>
+                <td><input type="date" id="founddate" name="founddate"
+                       onfocusout="Javascript:isFutureDate()"    class="report"required> </td>
+            </tr>
+            <tr>
+                <td style="text-align:right"><b style="color:red">* </b><b>Found Time: &nbsp; &nbsp;</b></td>
+                <td> <input type="time" id="foundtime"  name="foundtime" class="report"  onfocusout="Javascript:test()"required></td>
+            </tr>
+            <tr>
+                <td style="text-align:right"><b style="color:red">* </b><b>Description: &nbsp; &nbsp;</b></td>
+                <td><input type="text" name="description" maxlength="400" class="report"required ></td>
+            </tr>
+            <tr>
+                <td style="text-align:right"><b style="color:red">* </b><b>Collect this from: &nbsp; &nbsp;</b></td>
+                <td><input type="text" name="collect" maxlength="100" class="report"required></td>
+            </tr>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table>
+                      <tr>
+                <td width="10%" style="text-align:right"><b style="color:red">* </b><b>Found at: &nbsp;&nbsp;</b></td>
+                <td> <input type="radio" value="srk" name="foundat" required>  SRK </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Sportscomplex" name="foundat"> Sports Complex </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"><input type="radio" name="foundat" value="gym"> Gym</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"><input type="radio" name="foundat" value="mmm"> MMM </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Guesthouse" name="foundat"> Guest House </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="30%"> <input type="radio" value="Facultyresidence@girls hostel" name="foundat"> Faculty Residence at Girl's Hostel</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Canteen" name="foundat"> Canteen </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Girl's hostel" name="foundat"> Girl's Hostel </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Boy's hostel" name="foundat"> Boy's Hostel </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Ground" name="foundat"> Ground </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="library" name="foundat"> Library</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Frontgate" name="foundat"> Front Gate</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Backgate" name="foundat"> Back Gate</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Facultyresidence@boyshostel" name="foundat"> Faculty Residence at Boy's Hostel</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td width="25%"> <input type="radio" value="Central Vista" name="foundat"> Central Vista</td>
+            </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center" width="80%" colspan="2">&nbsp; &nbsp; &nbsp;<b>Remarks: &nbsp; &nbsp;</b>
+                <input type="text" name="remarks" maxlength="400" class="report"
+                      width="80%"></td>
+            </tr>
+        </table>
+        </center>
+        <center><small><b style="color:red;">* Marked fields are mandatory</b></small></center>
+        <center><button type="submit" class="onclicksubmits"><b>SUBMIT</b></button></center></div>
+        </form>
+    </div>   
+</body>
+</html>
+{% endblock %}

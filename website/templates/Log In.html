@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %} Log In {% endblock %}{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="bg-img">
+    <form method="POST" autocomplete="off">
+    <center>
+      <div class="containers">
+        <center><h1 style="color:brown;";><i><b><u>LOGIN PORTAL</u></b></i></h1></center>
+        <center><input type="text" placeholder="Enter UserID" pattern="[0-9]*" minlength="6" maxlength="7" name="Userid" color:"white" required></center>
+        <center><input type="password" placeholder="Enter Password" name="password" minlength="8" maxlength="8" required>
+        </center>
+        <font color="grey"><small>* Password must be of 8 characters long.</font></small><br>
+        <span class="psw">Forgot <a id="forgot" href="/forgot">password? </a> &nbsp; <a id="create" 
+          href="/create">Create</a> account?</span><br>
+        <center><button type="submit" class="submitbutton"><b>Submit</b></button></center>
+      </div>
+    </center>
+</form>
+</body>
+</html>
+{% endblock %}
